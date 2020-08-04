@@ -6,7 +6,6 @@ open3d_reqs = ['open3d-python']
 
 setup(
     name='MANO',
-    packages=['chamfer_distance'],
     include_package_data=True,
     #packages=find_packages(),
     description='A Pytorch Inplementation of MANO differentiable hand model',
