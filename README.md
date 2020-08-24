@@ -7,7 +7,7 @@ This is a pytorch implementation of [MANO](https://mano.is.tue.mpg.de/) hand mod
 
 MANO is a differentiable hand model that can map hand pose parameters (joint angles and root location) and shape parameters into a 3D hand mesh. The model is very realistic, has low-dimensions, and can fit any human hand.
 
-This repo was developed to be used in the [GrabNet](https://github.com/otaheri/GrabNet) model to generate realistic hand grasps fro unseen 3D objects.
+This repo was developed to be used in the [GrabNet](https://github.com/otaheri/GrabNet) model to generate realistic hand grasps for unseen 3D objects.
 
 ### Requirements
   * [Pytorch>=1.1.0](https://pytorch.org/get-started/locally/) 
