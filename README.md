@@ -48,6 +48,8 @@ Coming soon
 
 If you use this model for your research, please consider citing:
 
+
+```
 @article{MANO:SIGGRAPHASIA:2017,
   title = {Embodied Hands: Modeling and Capturing Hands and Bodies Together},
   author = {Romero, Javier and Tzionas, Dimitrios and Black, Michael J.},
@@ -58,9 +60,9 @@ If you use this model for your research, please consider citing:
   url = {http://doi.acm.org/10.1145/3130800.3130883},
   month_numeric = {11}
 }
-
+```
 and 
-
+```
 @inproceedings{GRAB:2020,
   title = {{GRAB}: A Dataset of Whole-Body Human Grasping of Objects},
   author = {Taheri, Omid and Ghorbani, Nima and Black, Michael J. and Tzionas, Dimitrios},
@@ -68,6 +70,7 @@ and
   year = {2020},
   url = {https://grab.is.tue.mpg.de}
 }
+```
 
 ### License
 
