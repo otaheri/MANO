@@ -36,10 +36,10 @@ def to_tensor(array, dtype=torch.float32):
 
 def to_np(array, dtype=np.float32):
     if 'scipy.sparse' in str(type(array)):
-        array = np.array(array.todencse(), dtype=dtype)
+        array = np.array(array.todense(), dtype=dtype)
     elif torch.is_tensor(array):
         array = array.detach().cpu().numpy()
-    return array
+    return array.astype(dtype)
 
 
 def rot_mat_to_euler(rot_mats):

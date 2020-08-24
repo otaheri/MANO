@@ -71,7 +71,7 @@ def lbs(betas, pose, v_template, shapedirs, posedirs, J_regressor, parents,
     '''
 
     batch_size = max(betas.shape[0], pose.shape[0])
-    device = betas.device
+    device, dtype = betas.device, betas.dtype
 
     # Add shape contribution
     v_shaped = v_template + blend_shapes(betas, shapedirs)
@@ -84,13 +84,13 @@ def lbs(betas, pose, v_template, shapedirs, posedirs, J_regressor, parents,
     # N x J x 3 x 3
     ident = torch.eye(3, dtype=dtype, device=device)
     if pose2rot:
-        rot_mats = batch_rodrigues(
-            pose.view(-1, 3), dtype=dtype).view([batch_size, -1, 3, 3])
+        rot_mats = batch_rodrigues(pose.view(-1, 3)).view(
+            [batch_size, -1, 3, 3])
 
         pose_feature = (rot_mats[:, 1:, :, :] - ident).view([batch_size, -1])
         # (N x P) x (P, V * 3) -> N x V x 3
-        pose_offsets = torch.matmul(pose_feature, posedirs) \
-            .view(batch_size, -1, 3)
+        pose_offsets = torch.matmul(
+            pose_feature, posedirs).view(batch_size, -1, 3)
     else:
         pose_feature = pose[:, 1:].view(batch_size, -1, 3, 3) - ident
         rot_mats = pose.view(batch_size, -1, 3, 3)
@@ -177,7 +177,7 @@ def batch_rodrigues(rot_vecs, epsilon=1e-8, dtype=torch.float32):
     '''
 
     batch_size = rot_vecs.shape[0]
-    device = rot_vecs.device
+    device, dtype = rot_vecs.device, rot_vecs.dtype
 
     angle = torch.norm(rot_vecs + 1e-8, dim=1, keepdim=True)
     rot_dir = rot_vecs / angle
@@ -241,8 +241,8 @@ def batch_rigid_transform(rot_mats, joints, parents, dtype=torch.float32):
     rel_joints[:, 1:] -= joints[:, parents[1:]]
 
     transforms_mat = transform_mat(
-        rot_mats.view(-1, 3, 3),
-        rel_joints.view(-1, 3, 1)).view(-1, joints.shape[1], 4, 4)
+        rot_mats.reshape(-1, 3, 3),
+        rel_joints.reshape(-1, 3, 1)).reshape(-1, joints.shape[1], 4, 4)
 
     transform_chain = [transforms_mat[:, 0]]
     for i in range(1, parents.shape[0]):
@@ -253,9 +253,6 @@ def batch_rigid_transform(rot_mats, joints, parents, dtype=torch.float32):
         transform_chain.append(curr_res)
 
     transforms = torch.stack(transform_chain, dim=1)
-
-    # The last column of the transformations contains the posed joints
-    posed_joints = transforms[:, :, :3, 3]
 
     # The last column of the transformations contains the posed joints
     posed_joints = transforms[:, :, :3, 3]

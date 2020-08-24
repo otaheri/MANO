@@ -97,6 +97,7 @@ class MANO(nn.Module):
                  flat_hand_mean=False,
                  batch_size=1,
                  joint_mapper=None,
+                 v_template=None,
                  dtype=torch.float32,
                  vertex_ids=None,
                  use_compressed=True,
@@ -189,7 +190,7 @@ class MANO(nn.Module):
                 default_global_orient = torch.zeros([batch_size, 3],
                                                     dtype=dtype)
             else:
-                if 'torch.Tensor' in str(type(global_orient)):
+                if torch.is_tensor(global_orient):
                     default_global_orient = global_orient.clone().detach()
                 else:
                     default_global_orient = torch.tensor(global_orient,
@@ -205,6 +206,11 @@ class MANO(nn.Module):
                 default_transl = torch.tensor(transl, dtype=dtype)
             self.register_parameter('transl', nn.Parameter(default_transl, requires_grad=True))
 
+
+        if v_template is None:
+            v_template = data_struct.v_template
+        if not torch.is_tensor(v_template):
+            v_template = to_tensor(to_np(v_template), dtype=dtype)
         # The vertices of the template model
         self.register_buffer('v_template', to_tensor(to_np(data_struct.v_template), dtype=dtype))
 
@@ -340,8 +346,8 @@ class MANO(nn.Module):
                 joints = self.joint_mapper(joints)
 
             if apply_trans:
-                joints += transl.unsqueeze(dim=1)
-                vertices += transl.unsqueeze(dim=1)
+                joints = joints + transl.unsqueeze(dim=1)
+                vertices = vertices + transl.unsqueeze(dim=1)
 
         output = ModelOutput(vertices=vertices if return_verts else None,
                              joints=joints if return_verts else None,

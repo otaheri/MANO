@@ -1,8 +1,5 @@
 from setuptools import setup
 
-pyrender_reqs = ['pyrender>=0.1.23', 'trimesh>=2.37.6', 'shapely']
-matplotlib_reqs = ['matplotlib']
-open3d_reqs = ['open3d-python']
 
 setup(
     name='MANO',
@@ -12,7 +9,7 @@ setup(
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     version='0.1',
-    url='https://github.com/OmidThr/MANO',
+    url='https://github.com/otaheri/MANO',
     author='Omid Taheri',
     author_email='omid.taheri@tuebingen.mpg.de',
     maintainer='Omid Taheri',
@@ -23,12 +20,6 @@ setup(
           'torch>=1.0.1.post2',
           'torchgeometry>=0.1.2'
       ],
-      extras_require={
-          'pyrender': pyrender_reqs,
-          'open3d': open3d_reqs,
-          'matplotlib': matplotlib_reqs,
-          'all': pyrender_reqs + matplotlib_reqs + open3d_reqs
-      },
-      packages=['mano']  
-      
+      packages=['mano']
+
     )
