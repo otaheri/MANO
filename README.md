@@ -9,6 +9,8 @@ MANO is a differentiable hand model that can map hand pose parameters (joint ang
 
 This repo was developed to be used in the [GrabNet](https://github.com/otaheri/GrabNet) model to generate realistic hand grasps for unseen 3D objects.
 
+![teaser](images/teaser.png)
+
 ### Requirements
   * [Pytorch>=1.1.0](https://pytorch.org/get-started/locally/) 
   
@@ -84,7 +86,7 @@ hj_meshes.show()
 
 ```
 
-#### Visualization (Click on the image to open 3D viewer)
+##### Results (Click on the image to open 3D viewer):
 
 [![3D-viewer](images/rhand.png)](https://htmlpreview.github.io/?http://grab.is.tue.mpg.de//uploads/ckeditor/attachments/368/rhand.html)
 
