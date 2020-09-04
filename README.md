@@ -77,7 +77,7 @@ j_meshes = rh_model.joint_meshes(output)
 #visualize hand mesh only
 h_meshes[0].show()
 
-#visualize hand mesh only
+#visualize joints mesh only
 j_meshes[0].show()
 
 #visualize hand and joint meshes
