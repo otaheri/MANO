@@ -86,7 +86,7 @@ hj_meshes.show()
 
 #### Visualization (Click on the image to open 3D viewer)
 
-[![3D-viewer](images/rhand.png)](images/rhand.html)
+[![3D-viewer](images/rhand.png)](images/rhand.html){:target="_blank" rel="noopener"}
 
 ### Citation
 
