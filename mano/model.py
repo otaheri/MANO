@@ -34,8 +34,8 @@ import torch
 import torch.nn as nn
 
 from .lbs import lbs
-
 from .utils import Struct, to_np, to_tensor
+from .utils import Mesh,points2sphere, colors
 from .joints_info import TIP_IDS
 
 ModelOutput = namedtuple('ModelOutput',
@@ -301,7 +301,9 @@ class MANO(nn.Module):
 
     def add_joints(self,vertices,joints, joint_ids = None):
 
-        joint_ids = joint_ids if joint_ids is not None else self.tip_ids
+        if joint_ids is None:
+            joint_ids = to_tensor(list(self.tip_ids.values()),
+                                  dtype=torch.long)
         extra_joints = torch.index_select(vertices, 1, joint_ids)
         joints = torch.cat([joints, extra_joints], dim=1)
 
@@ -340,7 +342,7 @@ class MANO(nn.Module):
 
             # Add any extra joints that might be needed
             if return_tips:
-                joints = self.add_tips(vertices, joints)
+                joints = self.add_joints(vertices, joints)
 
             if self.joint_mapper is not None:
                 joints = self.joint_mapper(joints)
@@ -357,3 +359,30 @@ class MANO(nn.Module):
                              full_pose=full_pose if return_full_pose else None)
 
         return output
+
+    def hand_meshes(self,output, vc= colors['skin']):
+
+        vertices = to_np(output.vertices)
+        if vertices.ndim <3:
+            vertices = vertices.reshape(-1,778,3)
+
+        meshes = []
+        for v in vertices:
+            hand_mesh = Mesh(vertices=v, faces=self.faces, vc=vc)
+            hand_mesh.visual.vertex_colors[:,3] = 164
+            meshes.append(hand_mesh)
+
+        return  meshes
+
+    def joint_meshes(self,output, radius=.002, vc=colors['green']):
+
+        joints = to_np(output.joints)
+        if joints.ndim <3:
+            joints = joints.reshape(1,-1,3)
+
+        meshes = []
+        for j in joints:
+            joint_mesh = Mesh(vertices=j, radius=radius, vc=vc)
+            meshes.append(joint_mesh)
+
+        return  meshes
