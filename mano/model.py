@@ -369,7 +369,6 @@ class MANO(nn.Module):
         meshes = []
         for v in vertices:
             hand_mesh = Mesh(vertices=v, faces=self.faces, vc=vc)
-            hand_mesh.visual.vertex_colors[:,3] = 164
             meshes.append(hand_mesh)
 
         return  meshes
