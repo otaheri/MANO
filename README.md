@@ -42,7 +42,7 @@ models
 
 ### Examples
 
-```
+```python
 
 import torch
 import mano
