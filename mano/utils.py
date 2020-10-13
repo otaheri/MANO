@@ -37,7 +37,9 @@ def to_tensor(array, dtype=torch.float32):
 
 def to_np(array, dtype=np.float32):
     if 'scipy.sparse' in str(type(array)):
-        array = np.array(array.todense(), dtype=dtype)
+        array = np.array(array.todense())
+    elif 'chumpy' in str(type(array)):
+        array = np.array(array)
     elif torch.is_tensor(array):
         array = array.detach().cpu().numpy()
     return array.astype(dtype)
