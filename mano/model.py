@@ -334,7 +334,7 @@ class MANO(nn.Module):
         full_pose += self.pose_mean
 
         if return_verts:
-            vertices, joints = lbs(self.betas, full_pose, self.v_template,
+            vertices, joints = lbs(betas, full_pose, self.v_template,
                                    self.shapedirs, self.posedirs,
                                    self.J_regressor, self.parents,
                                    self.lbs_weights, pose2rot=pose2rot,
