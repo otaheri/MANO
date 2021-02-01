@@ -88,7 +88,7 @@ hj_meshes.show()
 
 ##### Results (Click on the image to open 3D viewer):
 
-[![3D-viewer](images/rhand.png)](http://grab.is.tue.mpg.de//uploads/ckeditor/attachments/368/rhand.html)
+[![3D-viewer](images/rhand.png)](https://grab.is.tue.mpg.de/uploads/ckeditor/attachments/564/rhand.html)
 
 ### Citation
 
