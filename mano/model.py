@@ -212,7 +212,7 @@ class MANO(nn.Module):
         if not torch.is_tensor(v_template):
             v_template = to_tensor(to_np(v_template), dtype=dtype)
         # The vertices of the template model
-        self.register_buffer('v_template', to_tensor(to_np(data_struct.v_template), dtype=dtype))
+        self.register_buffer('v_template', v_template, dtype=dtype))
 
         # The shape components
         shapedirs = data_struct.shapedirs
