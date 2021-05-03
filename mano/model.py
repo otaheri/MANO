@@ -301,9 +301,10 @@ class MANO(nn.Module):
 
     def add_joints(self,vertices,joints, joint_ids = None):
 
+        dev = vertices.device
         if joint_ids is None:
             joint_ids = to_tensor(list(self.tip_ids.values()),
-                                  dtype=torch.long)
+                                  dtype=torch.long).to(dev)
         extra_joints = torch.index_select(vertices, 1, joint_ids)
         joints = torch.cat([joints, extra_joints], dim=1)
 
