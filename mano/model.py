@@ -40,6 +40,7 @@ from .joints_info import TIP_IDS
 
 ModelOutput = namedtuple('ModelOutput',
                          ['vertices', 'joints', 'full_pose', 'betas',
+                          'transl',
                           'global_orient',
                           'hand_pose'
                           ])
