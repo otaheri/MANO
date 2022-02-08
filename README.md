@@ -52,7 +52,7 @@ model_path = 'PATH_TO_MANO_MODELS'
 n_comps = 45
 batch_size = 10
 
-rh_model = mano.load(model_path=rhm_path,
+rh_model = mano.load(model_path=model_path,
                      is_right= True,
                      num_pca_comps=n_comps,
                      batch_size=batch_size,
