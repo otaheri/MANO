@@ -53,7 +53,7 @@ n_comps = 45
 batch_size = 10
 
 rh_model = mano.load(model_path=model_path,
-                     is_right= True,
+                     is_rhand= True,
                      num_pca_comps=n_comps,
                      batch_size=batch_size,
                      flat_hand_mean=False)
